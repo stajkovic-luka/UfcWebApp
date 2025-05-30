@@ -9,6 +9,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "fighters")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString(onlyExplicitlyIncluded = true)
 public class Fighter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,21 +20,27 @@ public class Fighter {
 
     @ManyToOne
     @JoinColumn(name = "countryId",referencedColumnName = "id")
+    @ToString.Include
     private Country country;
 
     @Column(name = "name")
+    @ToString.Include
     private String name;
 
     @Column(name = "nickname")
+    @ToString.Include
     private String nickname;
 
     @Column(name = "wins")
+    @ToString.Include
     private int wins;
 
     @Column(name = "losses")
+    @ToString.Include
     private int losses;
 
     @Column(name = "draws")
+    @ToString.Include
     private int draws;
 
     @Column(name = "height_cm")
@@ -43,7 +53,8 @@ public class Fighter {
     private double reach;
 
     @Column(name = "stance")
-    private String stance;
+    @Enumerated(EnumType.STRING)
+    private Stance stance;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
