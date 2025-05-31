@@ -1,7 +1,8 @@
-package org.stajkovic.ufc.cv.model;
+package org.stajkovic.ufc.cv.country.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.stajkovic.ufc.cv.fighter.model.Fighter;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<Fighter> fighterList;

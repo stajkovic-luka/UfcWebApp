@@ -1,11 +1,10 @@
-package org.stajkovic.ufc.cv.model;
+package org.stajkovic.ufc.cv.fighter.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.stajkovic.ufc.cv.country.model.Country;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "fighters")
@@ -16,10 +15,10 @@ import java.util.Date;
 public class Fighter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "countryId",referencedColumnName = "id")
+    @JoinColumn(name = "countryId")
     @ToString.Include
     private Country country;
 

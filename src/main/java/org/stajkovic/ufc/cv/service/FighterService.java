@@ -1,13 +1,14 @@
 package org.stajkovic.ufc.cv.service;
 
-import org.stajkovic.ufc.cv.model.Country;
-import org.stajkovic.ufc.cv.model.Fighter;
+import org.springframework.data.domain.Page;
+import org.stajkovic.ufc.cv.fighter.dto.FighterResponse;
+import org.stajkovic.ufc.cv.fighter.model.Fighter;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface FighterService {
-    List<Fighter> findAllFighters();
+    Page<FighterResponse> findAllFighters(int size, Integer page);
     Optional<Fighter> findFighterById();
     List<Fighter> findFighterByName(String name);
     void filterByCountry(String name);
