@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString(onlyExplicitlyIncluded = true)
+@ToString
 public class Fighter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,27 +19,21 @@ public class Fighter {
 
     @ManyToOne
     @JoinColumn(name = "countryId")
-    @ToString.Include
     private Country country;
 
     @Column(name = "name")
-    @ToString.Include
     private String name;
 
     @Column(name = "nickname")
-    @ToString.Include
     private String nickname;
 
     @Column(name = "wins")
-    @ToString.Include
     private int wins;
 
     @Column(name = "losses")
-    @ToString.Include
     private int losses;
 
     @Column(name = "draws")
-    @ToString.Include
     private int draws;
 
     @Column(name = "height_cm")

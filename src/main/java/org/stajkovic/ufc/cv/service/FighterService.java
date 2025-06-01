@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface FighterService {
     Page<FighterResponse> findAllFighters(int size, Integer page);
-    Optional<Fighter> findFighterById();
+    Optional<FighterResponse> findFighterById(int id);
     List<Fighter> findFighterByName(String name);
     void filterByCountry(String name);
     void addFighter(int id);

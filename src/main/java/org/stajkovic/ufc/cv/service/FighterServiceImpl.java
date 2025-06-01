@@ -16,29 +16,29 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Log
-public class FighterServiceImpl implements FighterService{
+public class FighterServiceImpl implements FighterService {
     private final FighterRepository fighterRepository;
+    private final ServiceHelper serviceHelper;
 
     @Override
     public Page<FighterResponse> findAllFighters(int size, Integer page) {
         // podaci o strani i velicini strane
-        Pageable pageable = PageRequest.of(page,size);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Fighter> allFighters = fighterRepository.findAll(pageable);
 
-
-        return fighterRepository.findAll(pageable)
-                .map(fighter -> FighterResponse.builder() // Page<Fighter> u FighterDTO
-                        .fighterId(fighter.getId())
-                        .name(fighter.getName())
-                        .countryName(fighter.getCountry().getNiceName())
-                        .build()
-                );
-
-
+        return serviceHelper.createDto(allFighters);
     }
 
     @Override
-    public Optional<Fighter> findFighterById() {
-        return Optional.empty();
+    public Optional<FighterResponse> findFighterById(int id) {
+        Optional<Fighter> fighter = fighterRepository.findFighterById(id);
+        if (fighter.isEmpty()) {
+            // vrati da borac nije nadjen poruku i http status code.
+            log.warning("Borac sa trazenim id nije nadjen u bazi.");
+        }
+
+
+        return serviceHelper.createDto(fighter);
     }
 
     @Override
