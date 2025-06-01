@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.stajkovic.ufc.cv.exception.FighterNotFoundException;
 import org.stajkovic.ufc.cv.fighter.dto.FighterResponse;
 import org.stajkovic.ufc.cv.fighter.model.Fighter;
 import org.stajkovic.ufc.cv.repository.FighterRepository;
@@ -22,7 +23,6 @@ public class FighterServiceImpl implements FighterService {
 
     @Override
     public Page<FighterResponse> findAllFighters(int size, Integer page) {
-        // podaci o strani i velicini strane
         Pageable pageable = PageRequest.of(page, size);
         Page<Fighter> allFighters = fighterRepository.findAll(pageable);
 
@@ -33,8 +33,7 @@ public class FighterServiceImpl implements FighterService {
     public Optional<FighterResponse> findFighterById(int id) {
         Optional<Fighter> fighter = fighterRepository.findFighterById(id);
         if (fighter.isEmpty()) {
-            // vrati da borac nije nadjen poruku i http status code.
-            log.warning("Borac sa trazenim id nije nadjen u bazi.");
+            throw new FighterNotFoundException("Borac sa id: "+id+" nije nadjen.",404);
         }
 
 

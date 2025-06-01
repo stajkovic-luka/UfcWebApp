@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.stajkovic.ufc.cv.country.model.Country;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -37,13 +38,13 @@ public class Fighter {
     private int draws;
 
     @Column(name = "height_cm")
-    private double height;
+    private BigDecimal height;
 
     @Column(name = "weight_in_kg")
-    private double weight;
+    private BigDecimal weight;
 
     @Column(name = "reach_in_cm")
-    private double reach;
+    private BigDecimal reach;
 
     @Column(name = "stance")
     @Enumerated(EnumType.STRING)
@@ -53,28 +54,28 @@ public class Fighter {
     private LocalDate dateOfBirth;
 
     @Column(name = "significant_strikes_landed_per_minute")
-    private double significantStrikesLanded;
+    private BigDecimal significantStrikesLanded;
 
     @Column(name = "significant_striking_accuracy")
-    private double significantStrikesAccuracy;
+    private BigDecimal significantStrikesAccuracy;
 
     @Column(name = "significant_strikes_absorbed_per_minute")
-    private double significantStrikesAbsorbed;
+    private BigDecimal significantStrikesAbsorbed;
 
     @Column(name = "significant_strike_defence")
-    private double significantStrikesDeffence;
+    private BigDecimal significantStrikesDeffence;
 
     @Column(name = "average_takedowns_landed_per_15_minutes")
-    private double avgTakedownsLanded;
+    private BigDecimal avgTakedownsLanded;
 
     @Column(name = "takedown_accuracy")
-    private double takedownAccuracy;
+    private BigDecimal takedownAccuracy;
 
     @Column(name = "takedown_defense")
-    private double takedownDefense;
+    private BigDecimal takedownDefense;
 
     @Column(name = "average_submissions_attempted_per_15_minutes")
-    private double avgSubmissionsAttempted;
+    private BigDecimal avgSubmissionsAttempted;
 
 
 
