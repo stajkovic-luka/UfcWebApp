@@ -1,15 +1,13 @@
 package org.stajkovic.ufc.cv.fighter.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
 import org.stajkovic.ufc.cv.fighter.model.Stance;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Builder
-public record FighterResponse(
-        int fighterId,
+public record FighterRequest (
         String name,
         String countryName,
         String nickname,
@@ -32,6 +30,6 @@ public record FighterResponse(
         BigDecimal avgSubmissionsAttempted,
         BigDecimal takedownAccuracy,
         BigDecimal takedownDefense
-) {
+){
 
 }

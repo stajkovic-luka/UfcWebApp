@@ -2,11 +2,12 @@ package org.stajkovic.ufc.cv.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.stajkovic.ufc.cv.fighter.dto.FighterRequest;
 import org.stajkovic.ufc.cv.fighter.dto.FighterResponse;
 import org.stajkovic.ufc.cv.service.FighterServiceImpl;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/ufc")
@@ -25,8 +26,17 @@ public class FighterController {
     }
 
     @GetMapping("/fighters/{id}")
-    public Optional<FighterResponse> getFighterById(@PathVariable(name = "id") int id) {
+    public FighterResponse getFighterById(@PathVariable(name = "id") int id) {
         return fighterServiceImpl.findFighterById(id);
+    }
+
+    @PostMapping("/fighters")
+    public ResponseEntity<FighterResponse> addFighter(@RequestBody FighterRequest fighterRequest) {
+
+        FighterResponse fighterResponse = fighterServiceImpl.addFighter(fighterRequest);
+        return ResponseEntity
+                .status(201)
+                .body(fighterResponse);
     }
 
 }

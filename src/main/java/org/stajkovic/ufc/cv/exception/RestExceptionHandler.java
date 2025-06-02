@@ -6,10 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.stajkovic.ufc.cv.exception.dto.ApiError;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Timer;
-
 @ControllerAdvice
 public class RestExceptionHandler {
 

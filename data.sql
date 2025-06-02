@@ -219,7 +219,7 @@ insert  into `countries`(`id`,`name`,`nicename`,`iso3`) values
 (186,'SAO TOME AND PRINCIPE','Sao Tome and Principe','STP'),
 (187,'SAUDI ARABIA','Saudi Arabia','SAU'),
 (188,'SENEGAL','Senegal','SEN'),
-(189,'SERBIA AND MONTENEGRO','Serbia and Montenegro',NULL),
+(189,'SERBIA','Serbia','SRB'),
 (190,'SEYCHELLES','Seychelles','SYC'),
 (191,'SIERRA LEONE','Sierra Leone','SLE'),
 (192,'SINGAPORE','Singapore','SGP'),
@@ -299,7 +299,7 @@ CREATE TABLE `fighters` (
   PRIMARY KEY (`id`),
   KEY `countryId` (`countryId`),
   CONSTRAINT `fighters_ibfk_1` FOREIGN KEY (`countryId`) REFERENCES `countries` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4112 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `fighters` */
 

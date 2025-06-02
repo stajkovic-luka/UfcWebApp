@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface FighterRepository extends JpaRepository<Fighter, Integer> {
     Optional<Fighter> findFighterById(int id);
+
 }
