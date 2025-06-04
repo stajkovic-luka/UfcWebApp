@@ -12,10 +12,12 @@ import org.stajkovic.ufc.cv.exception.CountryNotFoundException;
 import org.stajkovic.ufc.cv.exception.FighterNotFoundException;
 import org.stajkovic.ufc.cv.fighter.dto.FighterRequest;
 import org.stajkovic.ufc.cv.fighter.dto.FighterResponse;
+import org.stajkovic.ufc.cv.fighter.dto.FighterScoreRequest;
 import org.stajkovic.ufc.cv.fighter.model.Fighter;
 import org.stajkovic.ufc.cv.repository.CountryRepository;
 import org.stajkovic.ufc.cv.repository.FighterRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -81,6 +83,19 @@ public class FighterServiceImpl implements FighterService {
 
                 Fighter savedFighter = fighterRepository.save(fighter);
                 return serviceHelper.createDto(savedFighter);
+
+    }
+
+    @Override
+    public void updateFighterScore(String name, LocalDate dob, FighterScoreRequest scoreDTO) {
+        Fighter fighterToModify = fighterRepository.findFighterByNameAndDateOfBirth(name,dob)
+                .orElseThrow(() -> new FighterNotFoundException("Score not updated. Fighter was not found in database.",400));
+
+        fighterToModify.setWins(scoreDTO.win());
+        fighterToModify.setLosses(scoreDTO.loss());
+        fighterToModify.setDraws(scoreDTO.draw());
+
+        fighterRepository.save(fighterToModify);
 
     }
 }
