@@ -46,23 +46,31 @@ public class FighterController {
 
     @PatchMapping("/fighters")
     public ResponseEntity<String> modifyScoreFighter(@RequestParam String name,
-                                                              @RequestParam LocalDate dob,
-                                                              @RequestBody FighterScoreRequest fighterScoreRequest
-                                                              ) {
-        fighterServiceImpl.updateFighterScore(name,dob,fighterScoreRequest);
+                                                     @RequestParam LocalDate dob,
+                                                     @RequestBody FighterScoreRequest fighterScoreRequest
+    ) {
+        fighterServiceImpl.updateFighterScore(name, dob, fighterScoreRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Podaci o pobedama azurirani.");
     }
 
     @DeleteMapping("/fighters/{id}")
-    public ResponseEntity<String> deleteFighter(@PathVariable(name = "id") int id){
+    public ResponseEntity<String> deleteFighter(@PathVariable(name = "id") int id) {
 
         fighterServiceImpl.deleteFighterById(id);
 
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body("Borac uspesno obrisan.");
+    }
+
+    @GetMapping("/fighters/stats")
+    public Page<FighterResponse> fetchFighersByStance(@RequestParam(name = "p", defaultValue = "0") int pageNum,
+                                                      @RequestParam(defaultValue = "25") int pageSize,
+                                                      @RequestParam(name = "stance") String stance
+    ) {
+        return fighterServiceImpl.findFightersByStance(pageNum, pageSize,stance);
     }
 
 }

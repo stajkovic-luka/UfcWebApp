@@ -15,6 +15,7 @@ import org.stajkovic.ufc.cv.fighter.dto.FighterRequest;
 import org.stajkovic.ufc.cv.fighter.dto.FighterResponse;
 import org.stajkovic.ufc.cv.fighter.dto.FighterScoreRequest;
 import org.stajkovic.ufc.cv.fighter.model.Fighter;
+import org.stajkovic.ufc.cv.fighter.model.Stance;
 import org.stajkovic.ufc.cv.repository.CountryRepository;
 import org.stajkovic.ufc.cv.repository.FighterRepository;
 
@@ -108,6 +109,16 @@ public class FighterServiceImpl implements FighterService {
         if (rowsChanged == 0){
             throw new FighterNotFoundException("Brisanje neuspesno. Borac nije pronadjen u bazi", HttpStatus.BAD_REQUEST.value());
         }
+
+    }
+
+    @Override
+    public Page<FighterResponse> findFightersByStance(int pageNumber, int pageSize, String stanceStr) {
+        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Stance stance = Stance.valueOf(stanceStr);
+
+        // Nalazi borca po krit. i vraca DTO sa page metadata
+        return serviceHelper.createDto(fighterRepository.findFightersByStance(pageable,stance));
 
     }
 }
