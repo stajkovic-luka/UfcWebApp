@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.stajkovic.ufc.cv.fighter.dto.FighterRequest;
@@ -53,9 +52,17 @@ public class FighterController {
         fighterServiceImpl.updateFighterScore(name,dob,fighterScoreRequest);
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Score updated succesfully!");
+                .body("Podaci o pobedama azurirani.");
     }
 
+    @DeleteMapping("/fighters/{id}")
+    public ResponseEntity<String> deleteFighter(@PathVariable(name = "id") int id){
 
+        fighterServiceImpl.deleteFighterById(id);
+
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body("Borac uspesno obrisan.");
+    }
 
 }

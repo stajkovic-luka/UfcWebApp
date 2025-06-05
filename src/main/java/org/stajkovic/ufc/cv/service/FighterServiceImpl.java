@@ -6,6 +6,7 @@ import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.stajkovic.ufc.cv.country.model.Country;
 import org.stajkovic.ufc.cv.exception.CountryNotFoundException;
@@ -87,15 +88,26 @@ public class FighterServiceImpl implements FighterService {
     }
 
     @Override
+    @Transactional
     public void updateFighterScore(String name, LocalDate dob, FighterScoreRequest scoreDTO) {
         Fighter fighterToModify = fighterRepository.findFighterByNameAndDateOfBirth(name,dob)
-                .orElseThrow(() -> new FighterNotFoundException("Score not updated. Fighter was not found in database.",400));
+                .orElseThrow(() -> new FighterNotFoundException("Rezultat nije azuriran. Borac nije pronadjen u bazi.",400));
 
         fighterToModify.setWins(scoreDTO.win());
         fighterToModify.setLosses(scoreDTO.loss());
         fighterToModify.setDraws(scoreDTO.draw());
 
         fighterRepository.save(fighterToModify);
+
+    }
+
+    @Override
+    @Transactional
+    public void deleteFighterById(int id) {
+    int rowsChanged = fighterRepository.deleteFighterById(id);
+        if (rowsChanged == 0){
+            throw new FighterNotFoundException("Brisanje neuspesno. Borac nije pronadjen u bazi", HttpStatus.BAD_REQUEST.value());
+        }
 
     }
 }
