@@ -26,5 +26,7 @@ public interface FighterRepository extends JpaRepository<Fighter, Integer> {
 
     Page<Fighter> findFightersByStance(Pageable pageable, Stance stance);
 
+    @Query("select count(*) FROM Fighter")
+    int countFighters();
 
 }

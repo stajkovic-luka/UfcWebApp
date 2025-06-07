@@ -127,4 +127,9 @@ public class FighterServiceImpl implements FighterService {
         LocalDate givenDob = LocalDate.now().minusYears(minAge);
         return serviceHelper.createDto(fighterRepository.findFightersByWinsAndAge(pageable, minWins, givenDob));
     }
+
+    @Override
+    public int countFighters() {
+        return fighterRepository.countFighters();
+    }
 }

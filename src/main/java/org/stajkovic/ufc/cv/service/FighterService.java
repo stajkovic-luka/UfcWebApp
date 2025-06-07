@@ -2,12 +2,14 @@ package org.stajkovic.ufc.cv.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
 import org.stajkovic.ufc.cv.fighter.dto.FighterRequest;
 import org.stajkovic.ufc.cv.fighter.dto.FighterResponse;
 import org.stajkovic.ufc.cv.fighter.dto.FighterScoreRequest;
 import org.stajkovic.ufc.cv.fighter.model.Stance;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 
 public interface FighterService {
@@ -18,4 +20,6 @@ public interface FighterService {
     void deleteFighterById(int id);
     Page<FighterResponse> findFightersByStance(int pageNumber, int pageSize, String stanceStr);
     Page<FighterResponse> findFightersByWinsAge(Pageable pageable, int minAge, int wins);
+
+    int countFighters();
 }

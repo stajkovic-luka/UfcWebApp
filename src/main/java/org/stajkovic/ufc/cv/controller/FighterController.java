@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.stajkovic.ufc.cv.fighter.dto.FighterRequest;
@@ -94,6 +95,16 @@ public class FighterController {
 
 
         return fighterServiceImpl.findFightersByWinsAge(pageable, minAge, minWins);
+    }
+
+    // Vraca broj boraca u bazi
+    @GetMapping("/fighters/total")
+    public ResponseEntity<String> countAllFighters(){
+
+    int brBoraca = fighterServiceImpl.countFighters();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("U bazi ima "+ brBoraca+" boraca.");
     }
 
 
