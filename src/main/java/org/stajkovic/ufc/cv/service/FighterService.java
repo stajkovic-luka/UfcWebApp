@@ -17,5 +17,5 @@ public interface FighterService {
     void updateFighterScore(String name, LocalDate dob, FighterScoreRequest scoreDTO);
     void deleteFighterById(int id);
     Page<FighterResponse> findFightersByStance(int pageNumber, int pageSize, String stanceStr);
-
+    Page<FighterResponse> findFightersByWinsAge(Pageable pageable, int minAge, int wins);
 }

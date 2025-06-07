@@ -53,7 +53,6 @@ public class FighterServiceImpl implements FighterService {
     }
 
 
-
     @Override
     @Transactional
     public FighterResponse addFighter(FighterRequest fighterRequest) {
@@ -83,16 +82,16 @@ public class FighterServiceImpl implements FighterService {
                 .avgSubmissionsAttempted(fighterRequest.avgSubmissionsAttempted())
                 .build();
 
-                Fighter savedFighter = fighterRepository.save(fighter);
-                return serviceHelper.createDto(savedFighter);
+        Fighter savedFighter = fighterRepository.save(fighter);
+        return serviceHelper.createDto(savedFighter);
 
     }
 
     @Override
     @Transactional
     public void updateFighterScore(String name, LocalDate dob, FighterScoreRequest scoreDTO) {
-        Fighter fighterToModify = fighterRepository.findFighterByNameAndDateOfBirth(name,dob)
-                .orElseThrow(() -> new FighterNotFoundException("Rezultat nije azuriran. Borac nije pronadjen u bazi.",400));
+        Fighter fighterToModify = fighterRepository.findFighterByNameAndDateOfBirth(name, dob)
+                .orElseThrow(() -> new FighterNotFoundException("Rezultat nije azuriran. Borac nije pronadjen u bazi.", 400));
 
         fighterToModify.setWins(scoreDTO.win());
         fighterToModify.setLosses(scoreDTO.loss());
@@ -105,8 +104,8 @@ public class FighterServiceImpl implements FighterService {
     @Override
     @Transactional
     public void deleteFighterById(int id) {
-    int rowsChanged = fighterRepository.deleteFighterById(id);
-        if (rowsChanged == 0){
+        int rowsChanged = fighterRepository.deleteFighterById(id);
+        if (rowsChanged == 0) {
             throw new FighterNotFoundException("Brisanje neuspesno. Borac nije pronadjen u bazi", HttpStatus.BAD_REQUEST.value());
         }
 
@@ -114,11 +113,18 @@ public class FighterServiceImpl implements FighterService {
 
     @Override
     public Page<FighterResponse> findFightersByStance(int pageNumber, int pageSize, String stanceStr) {
-        Pageable pageable = PageRequest.of(pageNumber,pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Stance stance = Stance.valueOf(stanceStr);
 
         // Nalazi borca po krit. i vraca DTO sa page metadata
-        return serviceHelper.createDto(fighterRepository.findFightersByStance(pageable,stance));
+        return serviceHelper.createDto(fighterRepository.findFightersByStance(pageable, stance));
 
+    }
+
+    @Override
+    public Page<FighterResponse> findFightersByWinsAge(Pageable pageable, int minAge, int minWins) {
+
+        LocalDate givenDob = LocalDate.now().minusYears(minAge);
+        return serviceHelper.createDto(fighterRepository.findFightersByWinsAndAge(pageable, minWins, givenDob));
     }
 }
